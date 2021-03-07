@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <title>Vue-Diagram-Editor</title>
+  <meta name="description" content="Highly customizable diagram editor support for Vue.js">
+  <meta property="og:title" content="Vue-Diagram-Editor">
+  <meta property="og:site_name" content="Vue-Diagram-Editor">
+  <meta property="og:url" content="https://max-kut.github.io/vue-diagram-editor">
+  <meta property="og:description" content="Highly customizable diagram editor support for Vue.js">
+  <meta property="og:image" content="https://max-kut.github.io/vue-diagram-editor/static/vue-logo.png">
+  <meta property="twitter:title" content="Vue-Diagram-Editor">
+  <meta property="twitter:description" content="Highly customizable diagram editor support for Vue.js">
+  <meta property="twitter:image" content="https://max-kut.github.io/vue-diagram-editor/static/vue-logo.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="static/images/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="static/images/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="static/images/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="static/images/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="static/images/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="static/images/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="static/images/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="static/images/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="static/images/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="static/images/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/images/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="static/images/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/images/icons/favicon-16x16.png">
+  <meta name="msapplication-TileImage" content="static/images/icons/ms-icon-144x144.png">
+  <link rel="icon" href="static/vue-logo.png" type="image/png">
+  <meta name="msapplication-TileColor" content="#4fc08d">
+  <meta name="theme-color" content="#4fc08d">
+  <meta name="msapplication-config" content="browserconfig.xml">
+<link href="/static/css/app.a1f56c6f85bfa754de34.css" rel="stylesheet"></head>
+<body>
+  <div id="app">
+    <header>
+      <div class="container d-flex align-items-center justify-content-between">
+        <a class="navbar-brand" href="https://max-kut.github.io/vue-diagram-editor">
+          <img src="static/vue-logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          Vue<strong>DiagramEditor</strong>
+        </a>
+        <div class="d-flex align-items-center">
+          <code class="mr-3">v1.0.0</code>
+          <a class="github-button" href="https://github.com/max-kut/vue-diagram-editor" data-show-count="true" aria-label="Star max-kut/vue-diagram-editor on GitHub">Star</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="row align-items-md-stretch">
+          <div class="col-md-3">
+            <nav class="toc">
+              <strong>Table of contents</strong>
+              <ul><li><a href="#introduction">Introduction</a></li><li><a href="#getting-started">Getting Started</a><ul><li><a href="#data-structure">Data structure</a></li></ul></li><li><a href="#api">API</a><ul><li><a href="#node">Node</a></li><li><a href="#link">Link</a></li><li><a href="#props">Props</a></li><li><a href="#methods">Methods</a></li><li><a href="#events">Events</a></li><li><a href="#slots">Slots</a></li></ul></li></ul>
+            </nav>
+          </div>
+          <section id="content" class="col-md-9"><h1>Vue Diagram Editor component</h1>
+<h2 id="introduction">Introduction<a class="anchor" href="#introduction"><anchor class="js-vue"></anchor></a></h2>
+<p>The main purpose of this component is to make it possible to use any component within each node of the diagram.</p>
+<p>Vue-Diagram-Editor features:</p>
+<ul>
+  <li><strong>scoped-slot for node</strong></li>
+  <li>ripple (pulsable) node</li>
+  <li>any number of instances per page</li>
+  <li>customizable node color</li>
+  <li>customizable node pulse color</li>
+</ul>
+<p>
+  Special thanks to the author of the
+  <a href="https://github.com/gwenaelp/vue-diagrams" target="_blank"><code>gwenaelp/vue-diagrams</code></a>
+   package.
+</p>
+
+<h2 id="getting-started">Getting Started<a class="anchor" href="#getting-started"><anchor class="js-vue"></anchor></a></h2>
+<p>
+  It's recommended to install vue-diagram-editor via npm, and build your app using a bundler like
+  <a href="https://webpack.js.org/">webpack</a>.
+</p>
+<textarea data-lang="shell">npm install vue-diagram-editor</textarea>
+<p><strong>Requires Vue 2.6+</strong></p>
+<p>Simple example</p>
+<div class="code-wrapper"><textarea data-lang="vue">&lt;template&gt;
+  &lt;VueDiagramEditor
+    ref&#x3D;&quot;diagram&quot;
+    :node-color&#x3D;&quot;nodeColor&quot;
+    :node-pulsable&#x3D;&quot;nodePulsable&quot;
+  &gt;
+    &lt;template #node&#x3D;&quot;{node}&quot;&gt;
+      &lt;pre&gt;{{ format(node) }}&lt;/pre&gt;
+    &lt;/template&gt;
+  &lt;/VueDiagramEditor&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import VueDiagramEditor from &#x27;vue-diagram-editor&#x27;;
+import &#x27;vue-diagram-editor/dist/vue-diagram-editor.css&#x27;;
+
+export default {
+  name: &#x27;simple-example&#x27;,
+  components: {
+    VueDiagramEditor
+  },
+  data: () &#x3D;&gt; ({
+    nodes: {
+      &#x27;node-1&#x27;: {
+        id: &#x27;node-1&#x27;,
+        title: &#x27;My node 1&#x27;,
+        size: {
+          width: 200,
+          height: 220
+        },
+        portsOut: {
+          default: &#x27;out port default&#x27;
+        }
+      },
+      &#x27;node-2&#x27;: {
+        id: &#x27;node-2&#x27;,
+        title: &#x27;My node 2&#x27;,
+        size: {
+          width: 200,
+          height: 220
+        },
+        coordinates: {
+          x: 280,
+          y: 100
+        },
+        portsIn: {
+          default: &#x27;in port&#x27;
+        }
+      },
+    },
+    links: {
+      &#x27;link-1&#x27;: {
+        id: &#x27;link-1&#x27;,
+        start_id: &#x27;node-1&#x27;,
+        start_port: &#x27;default&#x27;,
+        end_id: &#x27;node-2&#x27;,
+        end_port: &#x27;default&#x27;
+      }
+    }
+  }),
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      this.$refs.diagram.setModel({
+        nodes: this.nodes,
+        links: this.links
+      });
+    },
+    format(node) {
+      return JSON.stringify(node, null, 2);
+    },
+    nodeColor(node) {
+      if (node.coordinates.x &gt; 200) {
+        return &#x27;#0f0&#x27;;
+      }
+      if (node.coordinates.y &gt; 200) {
+        return &#x27;#f00&#x27;;
+      }
+
+      return &#x27;#00f&#x27;;
+    },
+
+    nodePulsable(node) {
+      return node.coordinates.y &gt; 200;
+    }
+  }
+};
+&lt;/script&gt;
+
+</textarea></div>
+<div class="mt-3 mb-3">
+  <simple-example class="js-vue"></simple-example>
+</div>
+<br>
+<p>
+  If you just don't want to use webpack or any other bundlers,
+  you can simply include the standalone UMD build in your page.
+  In this way, make sure Vue as a dependency is included before vue-diagram-editor.
+</p>
+<div class="code-wrapper"><textarea data-lang="htmlmixed">&lt;!DOCTYPE html&gt;
+&lt;html lang&#x3D;&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+  &lt;script src&#x3D;&quot;https://cdn.jsdelivr.net/npm/vue@2.6&quot;&gt;&lt;/script&gt;
+  &lt;script src&#x3D;&quot;https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-treeselect.umd.min.js&quot;&gt;&lt;/script&gt;
+  &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-treeselect.min.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id&#x3D;&quot;app&quot;&gt;
+    &lt;diagram-editor ref&#x3D;&quot;diagram&quot;&gt;&lt;/diagram-editor&gt;
+  &lt;/div&gt;
+  &lt;script&gt;
+    // register the component
+    Vue.component(&#x27;diagram-editor&#x27;, VueDiagramEdotor.Diagram);
+    new Vue({
+      el: &#x27;#app&#x27;,
+      data: {
+        nodes: {
+          &#x27;node-1&#x27;: {
+            id: &#x27;node-1&#x27;,
+            title: &#x27;My node 1&#x27;,
+            portsOut: {
+              default: &#x27;&#x27;
+            }
+          },
+          &#x27;node-2&#x27;: {
+            id: &#x27;node-2&#x27;,
+            title: &#x27;My node 2&#x27;,
+            portsIn: {
+              default: &#x27;in port&#x27;
+            }
+          },
+        },
+        links: {
+          &#x27;link-1&#x27;: {
+            id: &#x27;link-1&#x27;,
+            start_id: &#x27;node-1&#x27;,
+            start_port: &#x27;default&#x27;,
+            end_id: &#x27;node-2&#x27;,
+            end_port: &#x27;default&#x27;
+          }
+        }
+      },
+      mounted() {
+        this.init();
+      },
+      methods: {
+        init() {
+          this.$refs.diagram.setModel({
+            nodes: this.nodes,
+            links: this.links
+          });
+        }
+      }
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea></div>
+<h3 id="data-structure">Data structure<a class="anchor" href="#data-structure"><anchor class="js-vue"></anchor></a></h3>
+The data structure of the Vue-Diagram-Editor has 2 main entities -
+<a href="#node">Node</a> and <a href="#link">Link</a>.
+The Vue-Diagram-Editor has the following data structure:
+<div class="code-wrapper"><textarea data-lang="application/json">{
+  &quot;nodes&quot;: {
+    &quot;node-1-id&quot;: {
+      &quot;id&quot;: &quot;node-1-id&quot;,
+      &quot;title&quot;: &quot;Title of node 1&quot;,
+      &quot;deletable&quot;: false,
+      &quot;coordinates&quot;: {
+        &quot;x&quot;: 100,
+        &quot;y&quot;: 100
+      },
+      &quot;size&quot;: {
+        &quot;width&quot;: 150,
+        &quot;height&quot;: 200
+      },
+      &quot;portsIn&quot;: {},
+      &quot;portsOut&quot;: {
+        &quot;outPortName&quot;: &quot;Out port title&quot;
+      },
+      &quot;data&quot;: {
+        &quot;userProperty&quot;: &quot;user Property Value&quot;
+      }
+    },
+    &quot;node-2-id&quot;: {
+      &quot;id&quot;: &quot;node-2-id&quot;,
+      &quot;title&quot;: &quot;Title of node 2&quot;,
+      &quot;deletable&quot;: true,
+      &quot;coordinates&quot;: {
+        &quot;x&quot;: 200,
+        &quot;y&quot;: 150
+      },
+      &quot;size&quot;: {
+        &quot;width&quot;: 150,
+        &quot;height&quot;: 200
+      },
+      &quot;portsIn&quot;: {
+        &quot;inPortName&quot;: &quot;In port name&quot;
+      },
+      &quot;portsOut&quot;: {},
+      &quot;data&quot;: {}
+    }
+  },
+  &quot;links&quot;: {
+    &quot;link-1-id&quot;: {
+      &quot;start_id&quot;: &quot;node-1-id&quot;,
+      &quot;start_port&quot;: &quot;outPortName&quot;,
+      &quot;end_id&quot;: &quot;node-2-id&quot;,
+      &quot;end_port&quot;: &quot;inPortName&quot;
+    }
+  }
+}
+</textarea></div>
+
+
+<hr>
+<h2 id="api">API<a class="anchor" href="#api"><anchor class="js-vue"></anchor></a></h2>
+<h3 id="node">Node<a class="anchor" href="#node"><anchor class="js-vue"></anchor></a></h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered">
+    <thead>
+    <tr>
+      <th>Prop</th>
+      <th title="Required">Req...</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>id</code></td>
+      <td>no</td>
+      <td>
+        generated <a href="https://github.com/ulid/javascript" target="_blank">ulid</a> identifier
+      </td>
+      <td>
+        Unique identifier of node
+      </td>
+    </tr>
+    <tr>
+      <td><code>title</code></td>
+      <td>yes</td>
+      <td><code>-</code></td>
+      <td>Title of node</td>
+    </tr>
+    <tr>
+      <td><code>coordinates</code></td>
+      <td>no</td>
+      <td><code>{ x:10, y:10 }</code></td>
+      <td>
+        Node coordinates object. Must contain this two numerical properties: <code>x</code> and <code>y</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>size</code></td>
+      <td>no</td>
+      <td><code>{ width:150, height:150 }</code></td>
+      <td>
+        Node size object. Must contain this two numerical properties: <code>width</code> and <code>height</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>portsIn</code></td>
+      <td>no</td>
+      <td><code>{}</code></td>
+      <td>
+        The node's incoming ports object.
+        Object keys are port names and values are port headers
+      </td>
+    </tr>
+    <tr>
+      <td><code>portsOut</code></td>
+      <td>no</td>
+      <td><code>{}</code></td>
+      <td>
+        The node's outgoing ports object.
+        Object keys are port names and values are port headers
+      </td>
+    </tr>
+    <tr>
+      <td><code>data</code></td>
+      <td>no</td>
+      <td><code>{}</code></td>
+      <td>
+        Custom data object. May be useful when handling events
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h3 id="link">Link<a class="anchor" href="#link"><anchor class="js-vue"></anchor></a></h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered">
+    <thead>
+    <tr>
+      <th>Prop</th>
+      <th title="Required">Req...</th>
+      <th>Type/Default</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>id</code></td>
+      <td>no</td>
+      <td>
+        <strong>Type</strong>: String
+        <br>
+        <strong>Default</strong>:
+                             generated <a href="https://github.com/ulid/javascript" target="_blank">ulid</a> identifier
+      </td>
+      <td>
+        Unique identifier of link
+      </td>
+    </tr>
+    <tr>
+      <td><code>start_id</code></td>
+      <td>yes</td>
+      <td>
+        <strong>Type</strong>: String
+        <div>No default value</div>
+      </td>
+      <td>
+        ID of the node from which this link starts
+      </td>
+    </tr>
+    <tr>
+      <td><code>start_port</code></td>
+      <td>no</td>
+      <td>
+        <strong>Type</strong>: String
+        <div><strong>Default</strong>: <code>"default"</code></div>
+      </td>
+      <td>
+        The name of the outgoing port of the node from which this link begins
+      </td>
+    </tr>
+    <tr>
+      <td><code>end_id</code></td>
+      <td>yes</td>
+      <td>
+        <strong>Type</strong>: String
+        <div>No default value</div>
+      </td>
+      <td>
+        ID of the node where this link ends
+      </td>
+    </tr>
+    <tr>
+      <td><code>end_port</code></td>
+      <td>no</td>
+      <td>
+        <strong>Type</strong>: String
+        <div><strong>Default</strong>: <code>"default"</code></div>
+      </td>
+      <td>
+        The name of the incoming port of the node where this link ends
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h3 id="props">Props<a class="anchor" href="#props"><anchor class="js-vue"></anchor></a></h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hover table--props">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type / Default</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>height</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Number
+        </div>
+        <div>
+          <strong>Default</strong>: <code>500</code>
+        </div>
+      </td>
+      <td>
+        Block height with Vue-Diagram-Editor
+      </td>
+    </tr>
+    <!--<tr>
+      <td><code>gridSnap</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Number
+        </div>
+        <div>
+          <strong>Default</strong>: <code>1</code>
+        </div>
+      </td>
+      <td>todo</td>
+    </tr>-->
+    <tr>
+      <td><code>zoomEnabled</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>true</code>
+        </div>
+      </td>
+      <td>Allows to scale the diagram</td>
+    </tr>
+    <tr>
+      <td><code>nodeColor</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: String
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => "#66cc00"</code>
+        </div>
+      </td>
+      <td>
+        The function takes object of <code>Node</code> as parameter and must return a string with a hexadecimal color
+        representation. Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>nodeDeletable</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => true</code>
+        </div>
+      </td>
+      <td>
+        Shows or hides the delete node button
+      </td>
+    </tr>
+    <tr>
+      <td><code>nodePulsable</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => false</code>
+        </div>
+      </td>
+      <td>
+        Enables or disables the ripple of a specific node. Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>nodePulseColor</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: String
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => "#f00"</code>
+        </div>
+      </td>
+      <td>
+        Determines the color of the node's ripple
+        (in the case when <code>nodePulsable</code> returns <code>true</code>).
+        Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>beforeDeleteNode</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => true</code>
+        </div>
+      </td>
+      <td>
+        In the case when the node is deletable,
+        it is executed immediately before deleting.
+        If the function returns false, the node is not deleted.
+        Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>beforeDeleteLink</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>link => true</code>
+        </div>
+      </td>
+      <td>
+        Executed immediately before the link is removed.
+        If the function returns false, the link is not removed.
+        Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>portDisabled</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>:<br>
+          <code>({id,type,port}) => false</code>
+        </div>
+      </td>
+      <td>
+        Determines if the port is blocked for communication.
+        If the port is disabled, you will not be able to create a new link or click on it.
+        Accepts an object with properties:
+        <div><code>id</code> - node identifier,</div>
+        <div><code>type</code> - port type (<code>in</code> or <code>out</code>),</div>
+        <div><code>port</code> - port name</div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>portAvailable</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>:<br>
+          <code>({id,type,port,activePort}) => true</code>
+        </div>
+      </td>
+      <td>
+        This function is executed at the moment of hovering to the port when a new link is creating.
+        Accepts an object with properties:
+        <div><code>id</code> - node identifier,</div>
+        <div><code>type</code> - port type (<code>in</code> or <code>out</code>),</div>
+        <div><code>port</code> - port name</div>
+        <div><code>activePort</code> - Object with the data of the starting port of the link being created</div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h3 id="methods">Methods<a class="anchor" href="#methods"><anchor class="js-vue"></anchor></a></h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Params</th>
+      <th>Return</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>setModel(model)</code></td>
+      <td>
+        <div><code>model.nodes</code> - Array or collection of <a href="#node">node</a> structure objects </div>
+        <div><code>model.links</code> - Array or collection of <a href="#link">link</a> structure objects </div>
+      </td>
+      <td><code>void</code></td>
+      <td>
+        The method completely re-initializes the diagram model
+      </td>
+    </tr>
+    <tr>
+      <td><code>serialize()</code></td>
+      <td><code>-</code></td>
+      <td><code>{nodes:[{...},{...}], links:[{...}]}</code></td>
+      <td>Method returns an object with arrays of nodes and links </td>
+    </tr>
+    <tr>
+      <td><code>addNode(node)</code></td>
+      <td><code>node</code> - <a href="#node">node</a> structure object</td>
+      <td><code>void</code></td>
+      <td>Method new node to the diagram model</td>
+    </tr>
+    <tr>
+      <td><code>addLink(link)</code></td>
+      <td><code>link</code> - <a href="#link">link</a> structure object</td>
+      <td><code>void</code></td>
+      <td>Method new link to the diagram model</td>
+    </tr>
+    <tr>
+      <td><code>updateNode(params)</code></td>
+      <td>
+        <div><code>params.id</code> node ID</div>
+        <div><code>params.name</code> node property name</div>
+        <div><code>params.value</code> node property value</div>
+      </td>
+      <td><code>void</code></td>
+      <td>Update root property of node</td>
+    </tr>
+    <tr>
+      <td><code>deleteNode(id)</code></td>
+      <td><code>id</code> - node ID</td>
+      <td><code>void</code></td>
+      <td>the method simulates a click on the button to delete a node</td>
+    </tr>
+    <tr>
+      <td><code>deleteLink(id)</code></td>
+      <td><code>id</code> - link ID</td>
+      <td><code>void</code></td>
+      <td>the method lowers the deletion of the link.</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h3 id="events">Events<a class="anchor" href="#events"><anchor class="js-vue"></anchor></a></h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered table--events">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Data</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>select-node</code></td>
+      <td>
+        <code>nodeId</code>
+      </td>
+      <td>
+        When a node is selected, an event with the node identifier is emitted
+      </td>
+    </tr>
+    <tr>
+      <td><code>deleted-node</code></td>
+      <td>
+        <code>nodeId</code>
+      </td>
+      <td>
+        When deleting a node, an event with the node identifier is emitted
+      </td>
+    </tr>
+    <tr>
+      <td><code>deleted-link</code></td>
+      <td>
+        <code>linkId</code>
+      </td>
+      <td>
+        When deleting a link, an event with the identifier of the deleted link is emitted
+      </td>
+    </tr>
+    <tr>
+      <td><code>updated-node</code></td>
+      <td>
+        <a href="#node"><code>Node</code></a>
+      </td>
+      <td>Updated node object</td>
+    </tr>
+    <tr>
+      <td><code>click-port</code></td>
+      <td><textarea data-lang="application/json" data-lines="0">{
+  &quot;id&quot;: &quot;node-id&quot;,
+  &quot;type&quot;: &quot;in&quot;,
+  &quot;port&quot;: &quot;port_name&quot;
+}
+</textarea></td>
+      <td>
+        The event is emitted when a port is clicked.
+        The event sends an object with a node identifier (<code>id</code>),
+        port <code>type</code> (<code>in</code> or <code>out</code>) and port name
+      </td>
+    </tr>
+    <tr>
+      <td><code>created-link</code></td>
+      <td>
+        <a href="#link"><code>Link</code></a>
+      </td>
+      <td>
+        The event is emitted after creating a new link
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<h3 id="slots">Slots<a class="anchor" href="#slots"><anchor class="js-vue"></anchor></a></h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Props</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>node</code></td>
+      <td><code>{node,width,height}</code></td>
+      <td>
+        Yes, every node can have any view component!
+        Slot scoped params:
+        <div><code>node</code> - <a href="#node">Node</a></div>
+        <div><code>width</code> - content part width</div>
+        <div><code>height</code> - content part height</div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+        </div>
+      </div>
+    </main>
+    <footer class="container pb-4 mt-3 text-center">
+      Copyright © 2021 <a href="https://github.com/max-kut">Maksim Kutishchev</a>. Apache-2 Licensed.
+    </footer>
+  </div>
+  <script async defer="defer" src="https://buttons.github.io/buttons.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script><script src="/static/js/app.cd978b4bfa57afffcf28.js"></script></body>
+</html>

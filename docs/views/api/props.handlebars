@@ -1,0 +1,184 @@
+<h3 id="props">Props</h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hover table--props">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type / Default</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>height</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Number
+        </div>
+        <div>
+          <strong>Default</strong>: <code>500</code>
+        </div>
+      </td>
+      <td>
+        Block height with Vue-Diagram-Editor
+      </td>
+    </tr>
+    <!--<tr>
+      <td><code>gridSnap</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Number
+        </div>
+        <div>
+          <strong>Default</strong>: <code>1</code>
+        </div>
+      </td>
+      <td>todo</td>
+    </tr>-->
+    <tr>
+      <td><code>zoomEnabled</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>true</code>
+        </div>
+      </td>
+      <td>Allows to scale the diagram</td>
+    </tr>
+    <tr>
+      <td><code>nodeColor</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: String
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => "#66cc00"</code>
+        </div>
+      </td>
+      <td>
+        The function takes object of <code>Node</code> as parameter and must return a string with a hexadecimal color
+        representation. Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>nodeDeletable</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => true</code>
+        </div>
+      </td>
+      <td>
+        Shows or hides the delete node button
+      </td>
+    </tr>
+    <tr>
+      <td><code>nodePulsable</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => false</code>
+        </div>
+      </td>
+      <td>
+        Enables or disables the ripple of a specific node. Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>nodePulseColor</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: String
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => "#f00"</code>
+        </div>
+      </td>
+      <td>
+        Determines the color of the node's ripple
+        (in the case when <code>nodePulsable</code> returns <code>true</code>).
+        Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>beforeDeleteNode</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>node => true</code>
+        </div>
+      </td>
+      <td>
+        In the case when the node is deletable,
+        it is executed immediately before deleting.
+        If the function returns false, the node is not deleted.
+        Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>beforeDeleteLink</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>: <code>link => true</code>
+        </div>
+      </td>
+      <td>
+        Executed immediately before the link is removed.
+        If the function returns false, the link is not removed.
+        Avoid heavy computation in this function
+      </td>
+    </tr>
+    <tr>
+      <td><code>portDisabled</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>:<br>
+          <code>({id,type,port}) => false</code>
+        </div>
+      </td>
+      <td>
+        Determines if the port is blocked for communication.
+        If the port is disabled, you will not be able to create a new link or click on it.
+        Accepts an object with properties:
+        <div><code>id</code> - node identifier,</div>
+        <div><code>type</code> - port type (<code>in</code> or <code>out</code>),</div>
+        <div><code>port</code> - port name</div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>portAvailable</code></td>
+      <td>
+        <div>
+          <strong>Type</strong>: Function: Boolean
+        </div>
+        <div>
+          <strong>Default</strong>:<br>
+          <code>({id,type,port,activePort}) => true</code>
+        </div>
+      </td>
+      <td>
+        This function is executed at the moment of hovering to the port when a new link is creating.
+        Accepts an object with properties:
+        <div><code>id</code> - node identifier,</div>
+        <div><code>type</code> - port type (<code>in</code> or <code>out</code>),</div>
+        <div><code>port</code> - port name</div>
+        <div><code>activePort</code> - Object with the data of the starting port of the link being created</div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

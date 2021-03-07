@@ -1,0 +1,50 @@
+{
+  "nodes": {
+    "node-1-id": {
+      "id": "node-1-id",
+      "title": "Title of node 1",
+      "deletable": false,
+      "coordinates": {
+        "x": 100,
+        "y": 100
+      },
+      "size": {
+        "width": 150,
+        "height": 200
+      },
+      "portsIn": {},
+      "portsOut": {
+        "outPortName": "Out port title"
+      },
+      "data": {
+        "userProperty": "user Property Value"
+      }
+    },
+    "node-2-id": {
+      "id": "node-2-id",
+      "title": "Title of node 2",
+      "deletable": true,
+      "coordinates": {
+        "x": 200,
+        "y": 150
+      },
+      "size": {
+        "width": 150,
+        "height": 200
+      },
+      "portsIn": {
+        "inPortName": "In port name"
+      },
+      "portsOut": {},
+      "data": {}
+    }
+  },
+  "links": {
+    "link-1-id": {
+      "start_id": "node-1-id",
+      "start_port": "outPortName",
+      "end_id": "node-2-id",
+      "end_port": "inPortName"
+    }
+  }
+}

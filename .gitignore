@@ -1,0 +1,15 @@
+.DS_Store
+
+*debug.log*
+*error.log*
+
+.eslintcache
+.idea
+
+node_modules/
+yarn.lock
+
+dist
+gh-pages
+
+test/unit/coverage

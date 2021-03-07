@@ -1,0 +1,66 @@
+<h3 id="methods">Methods</h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Params</th>
+      <th>Return</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>setModel(model)</code></td>
+      <td>
+        <div><code>model.nodes</code> - Array or collection of <a href="#node">node</a> structure objects </div>
+        <div><code>model.links</code> - Array or collection of <a href="#link">link</a> structure objects </div>
+      </td>
+      <td><code>void</code></td>
+      <td>
+        The method completely re-initializes the diagram model
+      </td>
+    </tr>
+    <tr>
+      <td><code>serialize()</code></td>
+      <td><code>-</code></td>
+      <td><code>{nodes:[{...},{...}], links:[{...}]}</code></td>
+      <td>Method returns an object with arrays of nodes and links </td>
+    </tr>
+    <tr>
+      <td><code>addNode(node)</code></td>
+      <td><code>node</code> - <a href="#node">node</a> structure object</td>
+      <td><code>void</code></td>
+      <td>Method new node to the diagram model</td>
+    </tr>
+    <tr>
+      <td><code>addLink(link)</code></td>
+      <td><code>link</code> - <a href="#link">link</a> structure object</td>
+      <td><code>void</code></td>
+      <td>Method new link to the diagram model</td>
+    </tr>
+    <tr>
+      <td><code>updateNode(params)</code></td>
+      <td>
+        <div><code>params.id</code> node ID</div>
+        <div><code>params.name</code> node property name</div>
+        <div><code>params.value</code> node property value</div>
+      </td>
+      <td><code>void</code></td>
+      <td>Update root property of node</td>
+    </tr>
+    <tr>
+      <td><code>deleteNode(id)</code></td>
+      <td><code>id</code> - node ID</td>
+      <td><code>void</code></td>
+      <td>the method simulates a click on the button to delete a node</td>
+    </tr>
+    <tr>
+      <td><code>deleteLink(id)</code></td>
+      <td><code>id</code> - link ID</td>
+      <td><code>void</code></td>
+      <td>the method lowers the deletion of the link.</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

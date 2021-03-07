@@ -1,0 +1,117 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$h1-font-size: $h2-font-size;
+
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/utilities";
+
+@import "~codemirror/lib/codemirror.css";
+@import "~codemirror/theme/elegant.css";
+@import "./code";
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 2px 5px rgba($gray-600, 0.4);
+  background-color: #fafafa;
+  z-index: 1000;
+
+  .navbar-brand {
+    color: $body-color;
+  }
+}
+
+main {
+  margin-top: 50px;
+}
+
+.toc {
+  position: sticky;
+  top: 50px;
+
+  ul {
+    list-style-type: none;
+    padding-left: 5px;
+  }
+
+  & > ul {
+    padding-left: 5px;
+
+    a {
+      color: $gray-700;
+    }
+
+    & > li > ul {
+      padding-left: 20px;
+
+      a {
+        color: $gray-600;
+      }
+    }
+  }
+}
+
+.table--props {
+  thead tr {
+    th:nth-child(2) {
+      min-width: 300px;
+    }
+
+    th:nth-child(3) {
+      min-width: 200px;
+    }
+  }
+}
+
+.table--events {
+  thead tr {
+    th:nth-child(1) {
+      min-width: 120px;
+    }
+
+    th:nth-child(2) {
+      min-width: 200px;
+    }
+  }
+}
+
+h2, h3 {
+  padding-top: 50px;
+  margin-top: -40px;
+}
+
+.anchor {
+  display: inline-block;
+  margin-left: 8px;
+  text-decoration: none;
+
+  svg {
+    color: rgba(0, 0, 0, 0.25);
+  }
+
+  svg:hover {
+    color: $link-color;
+  }
+
+  h2 & svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  h3 & svg {
+    width: 12px;
+    height: 12px;
+  }
+}

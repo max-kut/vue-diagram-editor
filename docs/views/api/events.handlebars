@@ -1,0 +1,66 @@
+<h3 id="events">Events</h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered table--events">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Data</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>select-node</code></td>
+      <td>
+        <code>nodeId</code>
+      </td>
+      <td>
+        When a node is selected, an event with the node identifier is emitted
+      </td>
+    </tr>
+    <tr>
+      <td><code>deleted-node</code></td>
+      <td>
+        <code>nodeId</code>
+      </td>
+      <td>
+        When deleting a node, an event with the node identifier is emitted
+      </td>
+    </tr>
+    <tr>
+      <td><code>deleted-link</code></td>
+      <td>
+        <code>linkId</code>
+      </td>
+      <td>
+        When deleting a link, an event with the identifier of the deleted link is emitted
+      </td>
+    </tr>
+    <tr>
+      <td><code>updated-node</code></td>
+      <td>
+        <a href="#node"><code>Node</code></a>
+      </td>
+      <td>Updated node object</td>
+    </tr>
+    <tr>
+      <td><code>click-port</code></td>
+      <td><textarea data-lang="application/json" data-lines="0">{{files.click_port_event_data}}</textarea></td>
+      <td>
+        The event is emitted when a port is clicked.
+        The event sends an object with a node identifier (<code>id</code>),
+        port <code>type</code> (<code>in</code> or <code>out</code>) and port name
+      </td>
+    </tr>
+    <tr>
+      <td><code>created-link</code></td>
+      <td>
+        <a href="#link"><code>Link</code></a>
+      </td>
+      <td>
+        The event is emitted after creating a new link
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

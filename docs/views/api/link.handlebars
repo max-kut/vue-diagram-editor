@@ -1,0 +1,72 @@
+<h3 id="link">Link</h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered">
+    <thead>
+    <tr>
+      <th>Prop</th>
+      <th title="Required">Req...</th>
+      <th>Type/Default</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>id</code></td>
+      <td>no</td>
+      <td>
+        <strong>Type</strong>: String
+        <br>
+        <strong>Default</strong>:
+                             generated <a href="https://github.com/ulid/javascript" target="_blank">ulid</a> identifier
+      </td>
+      <td>
+        Unique identifier of link
+      </td>
+    </tr>
+    <tr>
+      <td><code>start_id</code></td>
+      <td>yes</td>
+      <td>
+        <strong>Type</strong>: String
+        <div>No default value</div>
+      </td>
+      <td>
+        ID of the node from which this link starts
+      </td>
+    </tr>
+    <tr>
+      <td><code>start_port</code></td>
+      <td>no</td>
+      <td>
+        <strong>Type</strong>: String
+        <div><strong>Default</strong>: <code>"default"</code></div>
+      </td>
+      <td>
+        The name of the outgoing port of the node from which this link begins
+      </td>
+    </tr>
+    <tr>
+      <td><code>end_id</code></td>
+      <td>yes</td>
+      <td>
+        <strong>Type</strong>: String
+        <div>No default value</div>
+      </td>
+      <td>
+        ID of the node where this link ends
+      </td>
+    </tr>
+    <tr>
+      <td><code>end_port</code></td>
+      <td>no</td>
+      <td>
+        <strong>Type</strong>: String
+        <div><strong>Default</strong>: <code>"default"</code></div>
+      </td>
+      <td>
+        The name of the incoming port of the node where this link ends
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

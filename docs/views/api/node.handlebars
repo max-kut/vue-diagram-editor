@@ -1,0 +1,73 @@
+<h3 id="node">Node</h3>
+<div class="table-responsive">
+  <table class="table table-sm table-hovered">
+    <thead>
+    <tr>
+      <th>Prop</th>
+      <th title="Required">Req...</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>id</code></td>
+      <td>no</td>
+      <td>
+        generated <a href="https://github.com/ulid/javascript" target="_blank">ulid</a> identifier
+      </td>
+      <td>
+        Unique identifier of node
+      </td>
+    </tr>
+    <tr>
+      <td><code>title</code></td>
+      <td>yes</td>
+      <td><code>-</code></td>
+      <td>Title of node</td>
+    </tr>
+    <tr>
+      <td><code>coordinates</code></td>
+      <td>no</td>
+      <td><code>{ x:10, y:10 }</code></td>
+      <td>
+        Node coordinates object. Must contain this two numerical properties: <code>x</code> and <code>y</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>size</code></td>
+      <td>no</td>
+      <td><code>{ width:150, height:150 }</code></td>
+      <td>
+        Node size object. Must contain this two numerical properties: <code>width</code> and <code>height</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>portsIn</code></td>
+      <td>no</td>
+      <td><code>{}</code></td>
+      <td>
+        The node's incoming ports object.
+        Object keys are port names and values are port headers
+      </td>
+    </tr>
+    <tr>
+      <td><code>portsOut</code></td>
+      <td>no</td>
+      <td><code>{}</code></td>
+      <td>
+        The node's outgoing ports object.
+        Object keys are port names and values are port headers
+      </td>
+    </tr>
+    <tr>
+      <td><code>data</code></td>
+      <td>no</td>
+      <td><code>{}</code></td>
+      <td>
+        Custom data object. May be useful when handling events
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

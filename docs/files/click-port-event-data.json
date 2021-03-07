@@ -1,0 +1,5 @@
+{
+  "id": "node-id",
+  "type": "in",
+  "port": "port_name"
+}

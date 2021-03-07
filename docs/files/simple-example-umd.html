@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-treeselect.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-treeselect.min.css">
+</head>
+<body>
+  <div id="app">
+    <diagram-editor ref="diagram"></diagram-editor>
+  </div>
+  <script>
+    // register the component
+    Vue.component('diagram-editor', VueDiagramEdotor.Diagram);
+    new Vue({
+      el: '#app',
+      data: {
+        nodes: {
+          'node-1': {
+            id: 'node-1',
+            title: 'My node 1',
+            portsOut: {
+              default: ''
+            }
+          },
+          'node-2': {
+            id: 'node-2',
+            title: 'My node 2',
+            portsIn: {
+              default: 'in port'
+            }
+          },
+        },
+        links: {
+          'link-1': {
+            id: 'link-1',
+            start_id: 'node-1',
+            start_port: 'default',
+            end_id: 'node-2',
+            end_port: 'default'
+          }
+        }
+      },
+      mounted() {
+        this.init();
+      },
+      methods: {
+        init() {
+          this.$refs.diagram.setModel({
+            nodes: this.nodes,
+            links: this.links
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

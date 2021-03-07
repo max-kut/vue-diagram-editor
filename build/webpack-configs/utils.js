@@ -1,9 +1,12 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const resolve = exports.resolve = dir => (
   path.join(__dirname, '../..', dir)
 );
+
+const packageJSON = require(resolve('package.json'));
 
 exports.eslintLoader = dir => ({
   test: /\.(js|vue)$/,
@@ -71,3 +74,17 @@ exports.handlebarsLoader = () => ({
   test: /\.(hbs|handlebars)$/,
   loader: "handlebars-loader"
 });
+
+exports.ReplaceLinkAssetsPlugin = class {
+  apply(compiler) {
+    const pluginName = 'HeadersAnchorPlugin';
+    compiler.hooks.compilation.tap(pluginName, (compilation) => {
+      HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
+        pluginName, // <-- Set a meaningful name here for stacktraces
+        (data, cb) => {
+          data.html = data.html.replace(/(['"])\/static\//mg, '$1' + packageJSON.homepage + '/static/');
+          cb(null, data);
+        });
+    });
+  }
+}

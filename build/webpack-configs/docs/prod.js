@@ -67,6 +67,7 @@ const webpackConfig = merge(require('./base'), {
         NODE_ENV: 'production',
       },
     }),
+    new utils.ReplaceLinkAssetsPlugin(),
     new WebpackCdnPlugin({
       modules: [ {
         name: 'vue',

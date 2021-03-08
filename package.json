@@ -4,7 +4,7 @@
   "description": "Highly customizable diagram editor support for Vue.js",
   "author": "Maksim Kutishchev <max@amopro.ru>",
   "license": "Apache-2.0",
-  "homepage": "https://max-kut.github.io/vue-diagram-editor",
+  "homepage": "https://vue-diagram-editor.js.org",
   "repository": "max-kut/vue-diagram-editor",
   "main": "dist/vue-diagram-editor.cjs.js",
   "unpkg": "dist/vue-diagram-editor.umd.min.js",

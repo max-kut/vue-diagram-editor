@@ -18,4 +18,4 @@ It's recommended to install vue-diagram-editor via npm, and build your app using
 npm install vue-diagram-editor
 ```
 
-more info in [docs](https://max-kut.github.io/vue-diagram-editor) page
+more info in [docs](https://vue-diagram-editor.js.org) page

@@ -187,8 +187,8 @@ export default {
   &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
   &lt;title&gt;Title&lt;/title&gt;
   &lt;script src&#x3D;&quot;https://cdn.jsdelivr.net/npm/vue@2.6&quot;&gt;&lt;/script&gt;
-  &lt;script src&#x3D;&quot;https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-treeselect.umd.min.js&quot;&gt;&lt;/script&gt;
-  &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-treeselect.min.css&quot;&gt;
+  &lt;script src&#x3D;&quot;https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-diagram-editor.umd.min.js&quot;&gt;&lt;/script&gt;
+  &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-diagram-editor.min.css&quot;&gt;
 &lt;/head&gt;
 &lt;body&gt;
   &lt;div id&#x3D;&quot;app&quot;&gt;
@@ -196,7 +196,7 @@ export default {
   &lt;/div&gt;
   &lt;script&gt;
     // register the component
-    Vue.component(&#x27;diagram-editor&#x27;, VueDiagramEdotor.Diagram);
+    Vue.component(&#x27;diagram-editor&#x27;, VueDiagramEditor.Diagram);
     new Vue({
       el: &#x27;#app&#x27;,
       data: {
@@ -204,6 +204,10 @@ export default {
           &#x27;node-1&#x27;: {
             id: &#x27;node-1&#x27;,
             title: &#x27;My node 1&#x27;,
+            size: {
+              width: 200,
+              height: 220
+            },
             portsOut: {
               default: &#x27;&#x27;
             }
@@ -211,6 +215,14 @@ export default {
           &#x27;node-2&#x27;: {
             id: &#x27;node-2&#x27;,
             title: &#x27;My node 2&#x27;,
+            size: {
+              width: 200,
+              height: 220
+            },
+            coordinates: {
+              x: 280,
+              y: 100
+            },
             portsIn: {
               default: &#x27;in port&#x27;
             }

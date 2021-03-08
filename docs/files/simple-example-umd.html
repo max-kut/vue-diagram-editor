@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-treeselect.umd.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-treeselect.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-diagram-editor.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-diagram-editor@^1/dist/vue-diagram-editor.min.css">
 </head>
 <body>
   <div id="app">
@@ -13,7 +13,7 @@
   </div>
   <script>
     // register the component
-    Vue.component('diagram-editor', VueDiagramEdotor.Diagram);
+    Vue.component('diagram-editor', VueDiagramEditor.Diagram);
     new Vue({
       el: '#app',
       data: {
@@ -21,6 +21,10 @@
           'node-1': {
             id: 'node-1',
             title: 'My node 1',
+            size: {
+              width: 200,
+              height: 220
+            },
             portsOut: {
               default: ''
             }
@@ -28,6 +32,14 @@
           'node-2': {
             id: 'node-2',
             title: 'My node 2',
+            size: {
+              width: 200,
+              height: 220
+            },
+            coordinates: {
+              x: 280,
+              y: 100
+            },
             portsIn: {
               default: 'in port'
             }

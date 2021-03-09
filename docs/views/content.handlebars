@@ -36,7 +36,6 @@
 <div class="code-wrapper"><textarea data-lang="htmlmixed">{{files.vue_simple_example_umd}}</textarea></div>
 {{> guides/data-structure}}
 
-
 <hr>
 <h2 id="api">API</h2>
 {{> api/node}}
@@ -45,3 +44,19 @@
 {{> api/methods}}
 {{> api/events}}
 {{> api/slots}}
+
+<hr>
+<h2 id="contributing">Contributing</h2>
+<p>Best way to contribute is to create a pull request. In order to create a pull request:</p>
+<ul>
+  <li>Fork this repository</li>
+  <li>Clone repository fork (created in previous step) locally (on your machine)</li>
+  <li>Ensure that you have nodejs and npm installed locally</li>
+  <li>In console:</li>
+  <li><code>cd</code> into project folder</li>
+  <li><code>npm install &amp;&amp; npm run dev</code></li>
+  <li>After change is done lint project <code>npm run lint</code></li>
+  <li>Commit only meaningful changes. Do not commit distribution files (dist folder). Distribution files are built only before a release</li>
+  <li>Push your changes into your fork</li>
+  <li>Create a pull request</li>
+</ul>

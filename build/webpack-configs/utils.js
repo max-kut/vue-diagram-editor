@@ -87,4 +87,4 @@ exports.ReplaceLinkAssetsPlugin = class {
         });
     });
   }
-}
+};

@@ -31,7 +31,7 @@
   <meta name="msapplication-TileColor" content="#4fc08d">
   <meta name="theme-color" content="#4fc08d">
   <meta name="msapplication-config" content="browserconfig.xml">
-<link href="https://vue-diagram-editor.js.org/static/css/app.a1f56c6f85bfa754de34.css" rel="stylesheet"></head>
+<link href="https://vue-diagram-editor.js.org/static/css/app.f7b74377379c170f8f24.css" rel="stylesheet"></head>
 <body>
   <div id="app">
     <header>
@@ -41,7 +41,7 @@
           Vue<strong>DiagramEditor</strong>
         </a>
         <div class="d-flex align-items-center">
-          <code class="mr-3">v1.0.0</code>
+          <code class="mr-3">v1.1.0</code>
           <a class="github-button" href="https://github.com/max-kut/vue-diagram-editor" data-show-count="true" aria-label="Star max-kut/vue-diagram-editor on GitHub">Star</a>
         </div>
       </div>
@@ -86,9 +86,7 @@
     :node-color&#x3D;&quot;nodeColor&quot;
     :node-pulsable&#x3D;&quot;nodePulsable&quot;
   &gt;
-    &lt;template #node&#x3D;&quot;{node}&quot;&gt;
-      &lt;pre&gt;{{ format(node) }}&lt;/pre&gt;
-    &lt;/template&gt;
+    &lt;pre slot&#x3D;&quot;node&quot; slot-scope&#x3D;&quot;{node}&quot;&gt;{{ format(node) }}&lt;/pre&gt;
   &lt;/VueDiagramEditor&gt;
 &lt;/template&gt;
 
@@ -813,5 +811,5 @@ The Vue-Diagram-Editor has the following data structure:
     </footer>
   </div>
   <script async defer="defer" src="https://buttons.github.io/buttons.js"></script>
-<script src="//cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script><script src="https://vue-diagram-editor.js.org/static/js/app.cd978b4bfa57afffcf28.js"></script></body>
+<script src="//cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script><script src="https://vue-diagram-editor.js.org/static/js/app.b2b266642cdad7cbb237.js"></script></body>
 </html>

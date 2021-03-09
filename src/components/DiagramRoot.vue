@@ -1,28 +1,16 @@
 <template>
-  <SvgPanZoom
-    v-if="width > 0"
-    :style="{ width: width + 'px', height: height + 'px', border:'1px solid black'}"
+  <svg
+    :id="`diagram-root-${uniqId}`"
+    ref="diagramRoot"
+    version="1.1"
     xmlns="http://www.w3.org/2000/svg"
-    :zoom-enabled="zoomEnabled"
-    :pan-enabled="true"
-    :control-icons-enabled="false"
-    :fit="true"
-    :center="true"
-    :viewport-selector="`#diagram-root-${uniqId}`"
-    :prevent-mouse-events-default="false"
-    :before-pan="beforePan"
+    :viewBox.camel="'0 0 ' + (width/1.2) + ' ' + (height/1.2)"
+    :width="width"
+    :height="height"
+    preserveAspectRatio="xMinYMin meet"
+    class="diagram-editor__svg-content"
   >
-    <svg
-      :id="`diagram-root-${uniqId}`"
-      ref="diagramRoot"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      :viewBox.camel="'0 0 ' + (width/1.2) + ' ' + (height/1.2)"
-      :width="width"
-      :height="height"
-      preserveAspectRatio="xMinYMin meet"
-      class="svg-content"
-    >
+    <g ref="viewPort" class="svg-pan-zoom_viewport" x="50" y="50">
       <defs>
         <pattern :id="`diagram-small-grid-${uniqId}`" width="16" height="16" patternUnits="userSpaceOnUse">
           <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#ccc" stroke-width="0.5"/>
@@ -35,68 +23,65 @@
 
       <rect
         ref="grid"
-        class="svg-pan-zoom_viewport"
         x="-5000px" y="-5000px"
         width="10000px" height="10000px"
         :fill="`url(#diagram-grid-${uniqId})`"
         @mousedown="clearSelection"
       />
 
-      <g ref="viewPort" x="50" y="50">
-        <DiagramLink
-          v-for="link in links"
-          :id="link.id"
-          :key="link.id"
-          :link="link"
-          :node-start="nodes[link.start_id]"
-          :node-end="nodes[link.end_id]"
-          :selected="selectedLink === link.id"
-          @mousedown="selectLink(link.id)"
-        />
-        <DiagramNode
-          v-for="node in nodes"
-          :key="node.id"
-          :node="node"
-          :color="nodeColor"
-          :pulse-color="nodePulseColor"
-          :pulsable="nodePulsable"
-          :deletable="nodeDeletable"
-          :dragging="draggedNode === node.id"
-          :selected="selectedNode === node.id"
-          :port-disabled="portDisabled"
-          :port-available="portAvailable"
-          :active-port="activePort"
-          :hovered-port="hoveredPort"
+      <DiagramLink
+        v-for="link in links"
+        :id="link.id"
+        :key="link.id"
+        :link="link"
+        :node-start="nodes[link.start_id]"
+        :node-end="nodes[link.end_id]"
+        :selected="selectedLink === link.id"
+        @mousedown="selectLink(link.id)"
+      />
+      <DiagramNode
+        v-for="node in nodes"
+        :key="node.id"
+        :node="node"
+        :color="nodeColor"
+        :pulse-color="nodePulseColor"
+        :pulsable="nodePulsable"
+        :deletable="nodeDeletable"
+        :dragging="draggedNode === node.id"
+        :selected="selectedNode === node.id"
+        :port-disabled="portDisabled"
+        :port-available="portAvailable"
+        :active-port="activePort"
+        :hovered-port="hoveredPort"
 
-          @delete="deleteNode"
-          @drag-start="onNodeDragStart"
-          @resize-start="onNodeResizeStart"
-          @hovered-port="setHoveredPort"
-          @active-port="setActivePort"
-        >
-          <template #default="scopedParams">
-            <slot v-bind="scopedParams" :node="node"/>
-          </template>
-        </DiagramNode>
-        <line
-          v-if="newLink"
-          :x1="newLink.x1"
-          :y1="newLink.y1"
-          :x2="newLink.x2"
-          :y2="newLink.y2"
-          style="stroke:rgb(255,0,0);stroke-width:2"
-          pointer-events="none"
-        />
-      </g>
-    </svg>
-  </SvgPanZoom>
+        @delete="deleteNode"
+        @drag-start="onNodeDragStart"
+        @resize-start="onNodeResizeStart"
+        @hovered-port="setHoveredPort"
+        @active-port="setActivePort"
+      >
+        <template #default="scopedParams">
+          <slot v-bind="scopedParams" :node="node"/>
+        </template>
+      </DiagramNode>
+      <line
+        v-if="newLink"
+        :x1="newLink.x1"
+        :y1="newLink.y1"
+        :x2="newLink.x2"
+        :y2="newLink.y2"
+        style="stroke:rgb(255,0,0);stroke-width:2"
+        pointer-events="none"
+      />
+    </g>
+  </svg>
 </template>
 
 <script>
-import SvgPanZoom from 'vue-svg-pan-zoom';
 import DiagramNode from './DiagramNode';
 import DiagramLink from './DiagramLink';
 import DiagramEditorMixin from '../mixins/DiagramEditorMixin';
+import SvgPanZoomMixin from '../mixins/SvgPanZoomMixin';
 import {getAbsoluteXY} from '../helpers';
 import {ulid} from "ulid";
 
@@ -105,9 +90,8 @@ export default {
   components: {
     DiagramNode,
     DiagramLink,
-    SvgPanZoom
   },
-  mixins: [DiagramEditorMixin()],
+  mixins: [DiagramEditorMixin(), SvgPanZoomMixin()],
   props: {
     width: {type: Number, default: 0},
     height: {type: Number, required: true},
@@ -120,7 +104,8 @@ export default {
     beforeDeleteNode: {type: Function, required: true},
     beforeDeleteLink: {type: Function, required: true},
     portDisabled: {type: Function, required: true},
-    portAvailable: {type: Function, required: true}
+    portAvailable: {type: Function, required: true},
+    pan: {type: Boolean, required: true},
   },
   computed: {
     uniqId() {

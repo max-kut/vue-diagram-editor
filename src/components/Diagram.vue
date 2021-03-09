@@ -14,6 +14,7 @@
       :before-delete-link="beforeDeleteLink"
       :port-disabled="portDisabled"
       :port-available="portAvailable"
+      :pan="pan"
       @select-node="$emit('select-node', $event)"
       @deleted-node="$emit('deleted-node', $event)"
       @deleted-link="$emit('deleted-link', $event)"
@@ -82,7 +83,11 @@ export default {
     portAvailable: {
       type: Function,
       default: () => true
-    }
+    },
+    pan: {
+      type: Boolean,
+      default: true
+    },
   },
 
   data() {

@@ -82,7 +82,7 @@ export default () => ({
     },
 
     beforePan() {
-      return !(this.draggedNode || this.resizedNode || this.activePort);
+      return this.pan && !(this.draggedNode || this.resizedNode || this.activePort);
     },
 
     addNode(node) {

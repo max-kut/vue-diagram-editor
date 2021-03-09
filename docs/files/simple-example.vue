@@ -4,9 +4,7 @@
     :node-color="nodeColor"
     :node-pulsable="nodePulsable"
   >
-    <template #node="{node}">
-      <pre>{{ format(node) }}</pre>
-    </template>
+    <pre slot="node" slot-scope="{node}">{{ format(node) }}</pre>
   </VueDiagramEditor>
 </template>
 

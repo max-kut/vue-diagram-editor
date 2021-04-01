@@ -142,7 +142,7 @@ export default () => ({
           y: pos.y
         });
       } else if (this.activePort) {
-        const {x, y} = this.convertXYtoViewPort(pos.x, pos.y);
+        const {x, y} = this.convertXYtoViewPort(pos.pageX, pos.pageY);
         this.currentCursorPos = {x, y};
       }
     },
@@ -210,7 +210,7 @@ export default () => ({
     dragMove({gridSnap, x, y}) {
       const getCoords = (X, Y) => {
         let {x, y} = this.convertXYtoViewPort(X, Y);
-        x = snapToGrip(x, gridSnap) - gridSnap / 2;
+        x = snapToGrip(x, gridSnap) - (gridSnap / 2);
         y = snapToGrip(y, gridSnap);
         x -= this.initialCursorOffset.x;
         y -= this.initialCursorOffset.y;

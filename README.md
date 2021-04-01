@@ -3,24 +3,24 @@
 ![Vue](https://img.shields.io/badge/Vue-^2.6-brightgreen.svg)
 ![Npm badge](https://img.shields.io/npm/v/vue-diagram-editor.svg)
 
-Please read the documentation [https://vue-diagram-editor.js.org](https://vue-diagram-editor.js.org)
+Please read the documentation [https://vue-diagram-editor.js.org](https://vue-diagram-editor.js.org) (includes demo)
 
-![](./screenshot.png)
+![](./preview.gif)
 
 ## Introduction
 
 The main purpose of this component is to make it possible to use any component within each node of the diagram.
 
-Vue-Diagram-Editor features:
+### Vue Diagram Editor features:
 * **scoped-slot for node**
 * ripple (pulsable) node
 * any number of instances per page
 * customizable node color
 * customizable node pulse color
 
-## Getting Started
+## Getting Started with Vue Diagram Editor
 
-It's recommended to install vue-diagram-editor via npm, and build your app using a bundler like webpack:
+It's recommended to install `vue-diagram-editor` via npm, and build your app using a bundler like webpack:
 ```bash
 npm install vue-diagram-editor
 ```

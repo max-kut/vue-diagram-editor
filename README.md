@@ -230,6 +230,7 @@ If you just don't want to use webpack or any other bundlers, you can simply incl
 | `beforeDeleteLink` | **Type**: Function: Boolean<br>**Default**: `link => true` | Executed immediately before the link is removed. If the function returns false, the link is not removed. Avoid heavy computation in this function |
 | `portDisabled` | **Type**: Function: Boolean<br>**Default**:  <br>`({id,type,port}) => false` | Determines if the port is blocked for communication. If the port is disabled, you will not be able to create a new link or click on it. Accepts an object with properties:<br>`id` \- node identifier,<br>`type` \- port type (`in` or `out`),<br>`port` \- port name |
 | `portAvailable` | **Type**: Function: Boolean<br>**Default**:  <br>`({id,type,port,activePort}) => true` | This function is executed at the moment of hovering to the port when a new link is creating. Accepts an object with properties:<br>`id` \- node identifier,<br>`type` \- port type (`in` or `out`),<br>`port` \- port name<br>`activePort` \- Object with the data of the starting port of the link being created |
+| `preventMouseEventsDefault` | **Type**: Boolean<br>**Default**: `true` | Stops handling native events [see](https://github.com/bumbu/svg-pan-zoom#how-to-use) |
 
 ### [Methods](#methods)
 
@@ -242,6 +243,17 @@ If you just don't want to use webpack or any other bundlers, you can simply incl
 | `updateNode(params)` | `params.id` node ID<br>`params.name` node property name<br>`params.value` node property value | `void` | Update root property of node |
 | `deleteNode(id)` | `id` \- node ID | `void` | the method simulates a click on the button to delete a node |
 | `deleteLink(id)` | `id` \- link ID | `void` | the method lowers the deletion of the link. |
+| `enableDblClickZoom()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `disableDblClickZoom()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `isDblClickZoomEnabled()` | `-` | Boolean | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `enableMouseWheelZoom()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `disableMouseWheelZoom()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `isMouseWheelZoomEnabled()` | `-` | Boolean | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `resetZoom()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `updateBBox()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `fit()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `contain()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
+| `center()` | `-` | void | [see](https://github.com/bumbu/svg-pan-zoom#public-api) |
 
 ### [Events](#events)
 

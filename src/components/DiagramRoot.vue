@@ -106,6 +106,7 @@ export default {
     portDisabled: {type: Function, required: true},
     portAvailable: {type: Function, required: true},
     pan: {type: Boolean, required: true},
+    preventMouseEventsDefault: {type: Boolean, default: true},
   },
   computed: {
     uniqId() {

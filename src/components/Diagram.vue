@@ -15,6 +15,7 @@
       :port-disabled="portDisabled"
       :port-available="portAvailable"
       :pan="pan"
+      :prevent-mouse-events-default="preventMouseEventsDefault"
       @select-node="$emit('select-node', $event)"
       @deleted-node="$emit('deleted-node', $event)"
       @deleted-link="$emit('deleted-link', $event)"
@@ -88,6 +89,10 @@ export default {
       type: Boolean,
       default: true
     },
+    preventMouseEventsDefault: {
+      type: Boolean,
+      default: true
+    },
   },
 
   data() {
@@ -137,6 +142,40 @@ export default {
 
     deleteLink(id) {
       this.$refs.diagram.deleteLink(id);
+    },
+
+    enableDblClickZoom() {
+      return this.$refs.enableDblClickZoom();
+    },
+    disableDblClickZoom() {
+      return this.$refs.disableDblClickZoom();
+    },
+    isDblClickZoomEnabled() {
+      return this.$refs.isDblClickZoomEnabled();
+    },
+    enableMouseWheelZoom() {
+      return this.$refs.enableMouseWheelZoom();
+    },
+    disableMouseWheelZoom() {
+      return this.$refs.disableMouseWheelZoom();
+    },
+    isMouseWheelZoomEnabled() {
+      return this.$refs.isMouseWheelZoomEnabled();
+    },
+    resetZoom() {
+      return this.$refs.resetZoom();
+    },
+    updateBBox() {
+      return this.$refs.updateBBox();
+    },
+    fit() {
+      return this.$refs.fit();
+    },
+    contain() {
+      return this.$refs.contain();
+    },
+    center() {
+      return this.$refs.center();
     },
   },
 };

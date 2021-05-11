@@ -1,11 +1,20 @@
 <template>
-  <VueDiagramEditor
-    ref="diagram"
-    :node-color="nodeColor"
-    :node-pulsable="nodePulsable"
-  >
-    <pre slot="node" slot-scope="{node}">{{ format(node) }}</pre>
-  </VueDiagramEditor>
+  <div>
+    <VueDiagramEditor
+      ref="diagram"
+      :node-color="nodeColor"
+      :node-pulsable="nodePulsable"
+    >
+      <pre slot="node" slot-scope="{node}">{{ format(node) }}</pre>
+    </VueDiagramEditor>
+
+    <div class="d-flex">
+      <button class="btn btn-secondary m-1" @click="$refs.diagram.resetZoom()">resetZoom</button>
+      <button class="btn btn-secondary m-1" @click="$refs.diagram.fit()">fit</button>
+      <button class="btn btn-secondary m-1" @click="$refs.diagram.contain()">contain</button>
+      <button class="btn btn-secondary m-1" @click="$refs.diagram.center()">center</button>
+    </div>
+  </div>
 </template>
 
 <script>

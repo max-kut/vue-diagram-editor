@@ -145,37 +145,37 @@ export default {
     },
 
     enableDblClickZoom() {
-      return this.$refs.enableDblClickZoom();
+      return this.$refs.diagram.enableDblClickZoom();
     },
     disableDblClickZoom() {
-      return this.$refs.disableDblClickZoom();
+      return this.$refs.diagram.disableDblClickZoom();
     },
     isDblClickZoomEnabled() {
-      return this.$refs.isDblClickZoomEnabled();
+      return this.$refs.diagram.isDblClickZoomEnabled();
     },
     enableMouseWheelZoom() {
-      return this.$refs.enableMouseWheelZoom();
+      return this.$refs.diagram.enableMouseWheelZoom();
     },
     disableMouseWheelZoom() {
-      return this.$refs.disableMouseWheelZoom();
+      return this.$refs.diagram.disableMouseWheelZoom();
     },
     isMouseWheelZoomEnabled() {
-      return this.$refs.isMouseWheelZoomEnabled();
+      return this.$refs.diagram.isMouseWheelZoomEnabled();
     },
     resetZoom() {
-      return this.$refs.resetZoom();
+      return this.$refs.diagram.resetZoom();
     },
     updateBBox() {
-      return this.$refs.updateBBox();
+      return this.$refs.diagram.updateBBox();
     },
     fit() {
-      return this.$refs.fit();
+      return this.$refs.diagram.fit();
     },
     contain() {
-      return this.$refs.contain();
+      return this.$refs.diagram.contain();
     },
     center() {
-      return this.$refs.center();
+      return this.$refs.diagram.center();
     },
   },
 };

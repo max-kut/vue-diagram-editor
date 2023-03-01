@@ -11,7 +11,8 @@ Please read the documentation [https://vue-diagram-editor.js.org](https://vue-di
 
 The main purpose of this component is to make it possible to use any component within each node of the diagram.
 
-### Vue Diagram Editor features:
+### Vue Diagram Editor features
+
 * **scoped-slot for node**
 * ripple (pulsable) node
 * any number of instances per page
@@ -21,6 +22,7 @@ The main purpose of this component is to make it possible to use any component w
 ## Getting Started with Vue Diagram Editor
 
 It's recommended to install `vue-diagram-editor` via npm, and build your app using a bundler like webpack:
+
 ```bash
 npm install vue-diagram-editor
 ```
@@ -28,6 +30,7 @@ npm install vue-diagram-editor
 **Requires Vue 2.6+**
 
 ### Simple example
+
 ```vue
 <template>
   <VueDiagramEditor
@@ -120,6 +123,7 @@ export default {
 ```
 
 If you just don't want to use webpack or any other bundlers, you can simply include the standalone UMD build in your page. In this way, make sure Vue as a dependency is included before vue-diagram-editor.
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -196,7 +200,9 @@ If you just don't want to use webpack or any other bundlers, you can simply incl
 ```
 
 ## API
+
 ### [Node](#node)
+
 |  Prop  | Required | Default | Description |
 |:-------|:---------|:--------|:------------|
 | `id` | no | generated [ulid](https://github.com/ulid/javascript "ulid") identifier | Unique identifier of node |
@@ -208,6 +214,7 @@ If you just don't want to use webpack or any other bundlers, you can simply incl
 | `data` | no | `{}` | Custom data object. May be useful when handling events |
 
 ### [Link](#link)
+
 |  Prop  | Required | Type/Default | Description |
 |:-------|:---------|:-------------|:------------|
 | `id` | no | String / generated [ulid](https://github.com/ulid/javascript "ulid") identifier | Unique identifier of link |
@@ -267,14 +274,16 @@ If you just don't want to use webpack or any other bundlers, you can simply incl
 |`created-link`|[`Link`](#link)|The event is emitted after creating a new link|
 
 ## CONTRIBUTING
+
 Best way to contribute is to create a pull request. In order to create a pull request:
-- Fork this repository
-- Clone repository fork (created in previous step) locally (on your machine)
-- Ensure that you have nodejs and npm installed locally
-- In console:
-  - `cd` into project folder
-  - `npm install && npm run dev`
-- After change is done lint project `npm run lint`
-- Commit only meaningful changes. Do not commit distribution files (dist folder). Distribution files are built only before a release
-- Push your changes into your fork
-- Create a pull request
+
+* Fork this repository
+* Clone repository fork (created in previous step) locally (on your machine)
+* Ensure that you have nodejs and npm installed locally
+* In console:
+  * `cd` into project folder
+  * `npm install && npm run dev`
+* After change is done lint project `npm run lint`
+* Commit only meaningful changes. Do not commit distribution files (dist folder). Distribution files are built only before a release
+* Push your changes into your fork
+* Create a pull request

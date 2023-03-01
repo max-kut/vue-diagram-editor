@@ -52,5 +52,11 @@ export default () => ({
         center() {
             if (this.spz) return this.spz.center();
         },
+        zoomIn() {
+          if (this.spz) return this.spz.zoomIn();
+        },
+        zoomOut() {
+          if (this.spz) return this.spz.zoomOut();
+        }
     },
 });

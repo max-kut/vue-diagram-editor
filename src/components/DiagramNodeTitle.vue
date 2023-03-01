@@ -16,8 +16,7 @@
       height="16"
     />
     <svg x="0" y="0" :width="deletable ? width - 17 : width" height="16">
-      <title>{{ title }}</title>
-      <text x="2" y="13" font-size="15" font-weight="normal" fill="#fff">{{ title }}</text>
+      <text x="4" y="12" font-size="10" font-weight="bold" fill="#fff">{{ title }}</text>
     </svg>
 
     <svg

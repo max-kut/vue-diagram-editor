@@ -7,7 +7,8 @@
       :stroke="pulseColor(node)"
       :x="node.x"
       :y="node.y"
-      rx="3" ry="3"
+      rx="3"
+      ry="3"
       :width="node.width"
       :height="node.height"
     />
@@ -15,8 +16,10 @@
       :fill="color(node)"
       stroke="#000000"
       :stroke-width="selected ? 1 : 0"
-      :x="node.x" :y="node.y"
-      rx="3" ry="3"
+      :x="node.x"
+      :y="node.y"
+      rx="3"
+      ry="3"
       :width="node.width"
       :height="node.height"
     />
@@ -35,29 +38,42 @@
       fill="#ffffff"
       :x="node.x + 2"
       :y="node.y + 20"
-      rx="3" ry="3"
+      rx="3"
+      ry="3"
       :width="node.width - 4"
       :height="node.height - 22"
-      class="node-light-background"
     />
 
-    <foreignObject :x="node.x + 2" :y="node.y + 20" :width="slotWidth" :height="slotHeight">
-      <body xmlns="http://www.w3.org/1999/xhtml" class="diagram-editor__node-body">
-        <slot :width="slotWidth" :height="slotHeight"/>
+    <foreignObject
+      :x="node.x + 2"
+      :y="node.y + 20"
+      :width="slotWidth"
+      :height="slotHeight"
+      :style="node.style"
+    >
+      <body
+        xmlns="http://www.w3.org/1999/xhtml"
+        class="diagram-editor__node-body"
+      >
+        <slot
+          :width="slotWidth"
+          :height="slotHeight"
+        />
       </body>
     </foreignObject>
 
-    <svg :x="node.x - 4"
-         :y="node.y + node.height - portsHeight - 2"
-         :width="node.width + 8"
-         :height="portsHeight"
+    <svg
+      :x="node.x - 4"
+      :y="node.y + node.height - portsHeight - 2"
+      :width="node.width + 8"
+      :height="portsHeight"
     >
       <DiagramPort
         v-for="([port, portTitle], portIndex) in portsIn"
-        :key="node.id+'_in_'+port"
-        :id="node.id+'_in_'+port"
+        :key="node.id + '_in_' + port"
+        :id="node.id + '_in_' + port"
         :title="portTitle"
-        :width="(portIndex + 1) > portsOut.length ? node.width : node.width / 2"
+        :width="portIndex + 1 > portsOut.length ? node.width : node.width / 2"
         :x="0"
         :y="portIndex * 18"
         :disabled="portsInDisabled[port]"
@@ -71,8 +87,8 @@
 
       <DiagramPort
         v-for="([port, portTitle], portIndex) in portsOut"
-        :key="node.id+'_out_'+port"
-        :id="node.id+'_out_'+port"
+        :key="node.id + '_out_' + port"
+        :id="node.id + '_out_' + port"
         :title="portTitle"
         :width="node.width + 8"
         :x="0"
@@ -86,45 +102,49 @@
         @mouseleave="mouseLeavePort('out', port, $event)"
       />
     </svg>
-    <svg width="10" height="10"
-         :x="node.x + node.width - 10" :y="node.y + node.height - 10"
-         @mousedown="onResizeStart"
+    <svg
+      width="10"
+      height="10"
+      :x="node.x + node.width - 10"
+      :y="node.y + node.height - 10"
+      @mousedown="onResizeStart"
     >
-      <path d="M 0,10 10,0 v 10 z" fill="#000" style="cursor:nwse-resize"/>
+      <path d="M 0,10 10,0 v 10 z" fill="#000" style="cursor: nwse-resize" />
     </svg>
   </g>
 </template>
 <script>
-import Node from '../models/Node';
+import Node from "../models/Node";
 import DiagramPort from "./DiagramPort";
-import DiagramNodeTitle from './DiagramNodeTitle';
-import isEqual from 'lodash/isEqual';
+import DiagramNodeTitle from "./DiagramNodeTitle";
+import isEqual from "lodash/isEqual";
 
 export default {
   name: "DiagramNode",
 
   components: {
-    DiagramNodeTitle, DiagramPort
+    DiagramNodeTitle,
+    DiagramPort,
   },
 
   props: {
-    node: {type: Node, required: true},
-    color: {type: Function, required: true},
-    pulseColor: {type: Function, required: true},
-    pulsable: {type: Function, required: true},
-    portDisabled: {type: Function, required: true},
-    portAvailable: {type: Function, required: true},
-    deletable: {type: Function, required: true},
-    activePort: {type: Object, default: null},
-    hoveredPort: {type: Object, default: null},
-    selected: {type: Boolean, default: false},
-    dragging: {type: Boolean, default: false},
+    node: { type: Node, required: true },
+    color: { type: Function, required: true },
+    pulseColor: { type: Function, required: true },
+    pulsable: { type: Function, required: true },
+    portDisabled: { type: Function, required: true },
+    portAvailable: { type: Function, required: true },
+    deletable: { type: Function, required: true },
+    activePort: { type: Object, default: null },
+    hoveredPort: { type: Object, default: null },
+    selected: { type: Boolean, default: false },
+    dragging: { type: Boolean, default: false },
   },
 
   data() {
     return {
       nodeStrokeWidth: 0,
-      titleFillOpacity: 0.25
+      titleFillOpacity: 0.25,
     };
   },
 
@@ -136,28 +156,40 @@ export default {
       return Object.entries(this.node.portsOut);
     },
     portsInDisabled() {
-      return Object.keys(this.node.portsIn).reduce((acc, port) => ({
-        ...acc,
-        [port]: this.portDisabled({id: this.node.id, type: 'in', port})
-      }), {});
+      return Object.keys(this.node.portsIn).reduce(
+        (acc, port) => ({
+          ...acc,
+          [port]: this.portDisabled({ id: this.node.id, type: "in", port }),
+        }),
+        {}
+      );
     },
     portsOutDisabled() {
-      return Object.keys(this.node.portsOut).reduce((acc, port) => ({
-        ...acc,
-        [port]: this.portDisabled({id: this.node.id, type: 'out', port})
-      }), {});
+      return Object.keys(this.node.portsOut).reduce(
+        (acc, port) => ({
+          ...acc,
+          [port]: this.portDisabled({ id: this.node.id, type: "out", port }),
+        }),
+        {}
+      );
     },
     portsInAvailable() {
-      return Object.keys(this.node.portsIn).reduce((acc, port) => ({
-        ...acc,
-        [port]: this.activePort && this.isAvailablePort('in', port)
-      }), {});
+      return Object.keys(this.node.portsIn).reduce(
+        (acc, port) => ({
+          ...acc,
+          [port]: this.activePort && this.isAvailablePort("in", port),
+        }),
+        {}
+      );
     },
     portsOutAvailable() {
-      return Object.keys(this.node.portsOut).reduce((acc, port) => ({
-        ...acc,
-        [port]: this.activePort && this.isAvailablePort('out', port)
-      }), {});
+      return Object.keys(this.node.portsOut).reduce(
+        (acc, port) => ({
+          ...acc,
+          [port]: this.activePort && this.isAvailablePort("out", port),
+        }),
+        {}
+      );
     },
     portsHeight() {
       return this.node.portsHeight;
@@ -169,21 +201,27 @@ export default {
       // отступ - заготовок - отступ
       return this.node.size.height - 22;
     },
-    nodeDeletable(){
+    nodeDeletable() {
       return this.deletable(this.node);
-    }
+    },
   },
 
   methods: {
     isAvailablePort(type, port) {
-      const data = {id: this.node.id, type, port};
-      const activePort = {...this.activePort};
-      const hoveredPort = this.hoveredPort ? {...this.hoveredPort} : null;
-      const hoveredIsActive = hoveredPort ? isEqual(activePort, hoveredPort) : false;
-      return !hoveredIsActive && !isEqual(activePort, data) && this.portAvailable({
-        ...data,
-        activePort: {...this.activePort}
-      });
+      const data = { id: this.node.id, type, port };
+      const activePort = { ...this.activePort };
+      const hoveredPort = this.hoveredPort ? { ...this.hoveredPort } : null;
+      const hoveredIsActive = hoveredPort
+        ? isEqual(activePort, hoveredPort)
+        : false;
+      return (
+        !hoveredIsActive &&
+        !isEqual(activePort, data) &&
+        this.portAvailable({
+          ...data,
+          activePort: { ...this.activePort },
+        })
+      );
     },
 
     deleteNode() {
@@ -191,14 +229,14 @@ export default {
     },
 
     onDragStart(e) {
-      this.$emit('drag-start', {
+      this.$emit("drag-start", {
         node: this.node,
         eX: e.x,
         eY: e.y,
       });
     },
     onResizeStart(e) {
-      this.$emit('resize-start', {
+      this.$emit("resize-start", {
         node: this.node,
         eX: e.x,
         eY: e.y,
@@ -206,35 +244,39 @@ export default {
     },
 
     isHoveredPort(type, port) {
-      return this.hoveredPort &&
+      return (
+        this.hoveredPort &&
         this.node.id === this.hoveredPort.id &&
         port === this.hoveredPort.port &&
-        type === this.hoveredPort.type;
+        type === this.hoveredPort.type
+      );
     },
 
     mouseDownPort(type, port) {
-      const portIsDisabled = type === 'in'
-        ? this.portsInDisabled[port]
-        : this.portsOutDisabled[port];
+      const portIsDisabled =
+        type === "in"
+          ? this.portsInDisabled[port]
+          : this.portsOutDisabled[port];
       if (!portIsDisabled) {
-        this.$emit('active-port', {
+        this.$emit("active-port", {
           id: this.node.id,
           port: port,
-          type: type
+          type: type,
         });
       }
     },
 
     mouseEnterPort(type, port) {
-      this.$emit('hovered-port', {
+      this.$emit("hovered-port", {
         id: this.node.id,
         port: port,
-        type: type
+        type: type,
       });
     },
+
     mouseLeavePort() {
-      this.$emit('hovered-port', null);
+      this.$emit("hovered-port", null);
     },
-  }
+  },
 };
 </script>

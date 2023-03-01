@@ -28,11 +28,16 @@ export default class Node {
     // default: Port
   };
 
+  style = {
+    // default: {backgroundColor: 'rgba(255,255,255,0.5)'}
+  };
+
   /**
    * @param  {String} attr.id
    * @param  {String} attr.title
    * @param  {Coordinates} attr.coordinates
    * @param  {Size} attr.size
+   * @param  {Object} attr.style
    */
   constructor(attr) {
     this.id = Node.prepareProp('id', attr.id);
@@ -43,6 +48,7 @@ export default class Node {
 
     this.portsIn = Node.prepareProp('portsIn', attr.portsIn);
     this.portsOut = Node.prepareProp('portsOut', attr.portsOut);
+    this.style = Node.prepareProp('style', attr.style);
   }
 
   static prepareProp(name, value) {
@@ -58,6 +64,8 @@ export default class Node {
         return {...(value || {})};
       case 'data':
         return value || {};
+      case 'style':
+        return value || {backgroundColor: 'rgba(255,255,255,0.5)'};
       default:
         return value;
     }

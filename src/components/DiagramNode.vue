@@ -55,10 +55,7 @@
         xmlns="http://www.w3.org/1999/xhtml"
         class="diagram-editor__node-body"
       >
-        <slot
-          :width="slotWidth"
-          :height="slotHeight"
-        />
+        <slot :width="slotWidth" :height="slotHeight" />
       </body>
     </foreignObject>
 
@@ -80,6 +77,7 @@
         :available="portsInAvailable[port]"
         :hovered="isHoveredPort('in', port)"
         align="start"
+        :color="invertColor(node.style.backgroundColor, true)"
         @mousedown="mouseDownPort('in', port, $event)"
         @mouseenter="mouseEnterPort('in', port, $event)"
         @mouseleave="mouseLeavePort('in', port, $event)"
@@ -97,6 +95,7 @@
         :available="portsOutAvailable[port]"
         :hovered="isHoveredPort('out', port)"
         align="end"
+        :color="invertColor(node.style.backgroundColor, true)"
         @mousedown="mouseDownPort('out', port, $event)"
         @mouseenter="mouseEnterPort('out', port, $event)"
         @mouseleave="mouseLeavePort('out', port, $event)"
@@ -109,7 +108,7 @@
       :y="node.y + node.height - 10"
       @mousedown="onResizeStart"
     >
-      <path d="M 0,10 10,0 v 10 z" fill="#000" style="cursor: nwse-resize" />
+      <path d="M 0,10 10,0 v 10 z" fill="#c4c4c4" style="cursor: nwse-resize" />
     </svg>
   </g>
 </template>
@@ -276,6 +275,33 @@ export default {
 
     mouseLeavePort() {
       this.$emit("hovered-port", null);
+    },
+
+    invertColor(hex, bw) {
+      if (hex.indexOf("#") === 0) {
+        hex = hex.slice(1);
+      }
+      // convert 3-digit hex to 6-digits.
+      if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+      }
+      if (hex.length !== 6) {
+        console.error(hex, bw);
+        throw new Error("Invalid HEX color.");
+      }
+      var r = parseInt(hex.slice(0, 2), 16),
+        g = parseInt(hex.slice(2, 4), 16),
+        b = parseInt(hex.slice(4, 6), 16);
+      if (bw) {
+        // https://stackoverflow.com/a/3943023/112731
+        return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#FFFFFF";
+      }
+      // invert color components
+      r = (255 - r).toString(16);
+      g = (255 - g).toString(16);
+      b = (255 - b).toString(16);
+      // pad each with zeros and return
+      return "#" + padZero(r) + padZero(g) + padZero(b);
     },
   },
 };

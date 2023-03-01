@@ -4,7 +4,7 @@
     ref="diagramRoot"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
-    :viewBox.camel="'0 0 ' + (width/1.2) + ' ' + (height/1.2)"
+    :viewBox.camel="'0 0 ' + width / 1.2 + ' ' + height / 1.2"
     :width="width"
     :height="height"
     preserveAspectRatio="xMinYMin meet"
@@ -12,20 +12,62 @@
   >
     <g ref="viewPort" class="svg-pan-zoom_viewport" x="50" y="50">
       <defs>
-        <pattern :id="`diagram-small-grid-${uniqId}`" width="16" height="16" patternUnits="userSpaceOnUse">
-          <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#ccc" stroke-width="0.5"/>
+        <pattern
+          :id="`diagram-small-grid-${uniqId}`"
+          width="16"
+          height="16"
+          patternUnits="userSpaceOnUse"
+        >
+          <path
+            d="M 16 0 L 0 0 0 16"
+            fill="none"
+            stroke="#81818a"
+            stroke-width="0.5"
+          />
         </pattern>
-        <pattern :id="`diagram-grid-${uniqId}`" width="80" height="80" patternUnits="userSpaceOnUse">
-          <rect width="80" height="80" :fill="`url(#diagram-small-grid-${uniqId})`"/>
-          <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#ccc" stroke-width="1"/>
+        <pattern
+          :id="`diagram-grid-square-${uniqId}`"
+          width="80"
+          height="80"
+          patternUnits="userSpaceOnUse"
+        >
+          <rect
+            width="80"
+            height="80"
+            :fill="`url(#diagram-small-grid-${uniqId})`"
+          />
+          <path
+            d="M 80 0 L 0 0 0 80"
+            fill="none"
+            stroke="#81818a"
+            stroke-width="1"
+          />
+        </pattern>
+        <pattern
+          :id="`diagram-grid-dot-${uniqId}`"
+          :x="xOffSet"
+          :y="yOffSet"
+          :width="scaledGap"
+          :height="scaledGap"
+          patternUnits="userSpaceOnUse"
+        >
+          <template>
+            <circle :cx="size" :cy="size" :r="size" fill="#81818a" />
+          </template>
         </pattern>
       </defs>
 
       <rect
         ref="grid"
-        x="-5000px" y="-5000px"
-        width="10000px" height="10000px"
-        :fill="`url(#diagram-grid-${uniqId})`"
+        x="-5000px"
+        y="-5000px"
+        width="10000px"
+        height="10000px"
+        :fill="
+          bgPattern > 0
+            ? `url(#diagram-grid-square-${uniqId})`
+            : `url(#diagram-grid-dot-${uniqId})`
+        "
         @mousedown="clearSelection"
       />
 
@@ -53,7 +95,6 @@
         :port-available="portAvailable"
         :active-port="activePort"
         :hovered-port="hoveredPort"
-
         @delete="deleteNode"
         @drag-start="onNodeDragStart"
         @resize-start="onNodeResizeStart"
@@ -61,7 +102,7 @@
         @active-port="setActivePort"
       >
         <template #default="scopedParams">
-          <slot v-bind="scopedParams" :node="node"/>
+          <slot v-bind="scopedParams" :node="node" />
         </template>
       </DiagramNode>
       <line
@@ -70,7 +111,7 @@
         :y1="newLink.y1"
         :x2="newLink.x2"
         :y2="newLink.y2"
-        style="stroke:rgb(255,0,0);stroke-width:2"
+        style="stroke: rgb(255, 0, 0); stroke-width: 2"
         pointer-events="none"
       />
     </g>
@@ -78,53 +119,65 @@
 </template>
 
 <script>
-import DiagramNode from './DiagramNode';
-import DiagramLink from './DiagramLink';
-import DiagramEditorMixin from '../mixins/DiagramEditorMixin';
-import SvgPanZoomMixin from '../mixins/SvgPanZoomMixin';
-import {getAbsoluteXY} from '../helpers';
-import {ulid} from "ulid";
+import DiagramNode from "./DiagramNode";
+import DiagramLink from "./DiagramLink";
+import DiagramEditorMixin from "../mixins/DiagramEditorMixin";
+import SvgPanZoomMixin from "../mixins/SvgPanZoomMixin";
+import { getAbsoluteXY } from "../helpers";
+import { ulid } from "ulid";
 
 export default {
-  name: 'DiagramRoot',
+  name: "DiagramRoot",
   components: {
     DiagramNode,
     DiagramLink,
   },
   mixins: [DiagramEditorMixin(), SvgPanZoomMixin()],
   props: {
-    width: {type: Number, default: 0},
-    height: {type: Number, required: true},
-    gridSnap: {type: Number, required: true},
-    zoomEnabled: {type: Boolean, required: true},
-    nodeColor: {type: Function, required: true},
-    nodePulseColor: {type: Function, required: true},
-    nodePulsable: {type: Function, required: true},
-    nodeDeletable: {type: Function, required: true},
-    beforeDeleteNode: {type: Function, required: true},
-    beforeDeleteLink: {type: Function, required: true},
-    portDisabled: {type: Function, required: true},
-    portAvailable: {type: Function, required: true},
-    pan: {type: Boolean, required: true},
-    preventMouseEventsDefault: {type: Boolean, default: true},
+    bgPattern: { type: Number, default: 0 },
+    width: { type: Number, default: 0 },
+    height: { type: Number, required: true },
+    gridSnap: { type: Number, required: true },
+    zoomEnabled: { type: Boolean, required: true },
+    nodeColor: { type: Function, required: true },
+    nodePulseColor: { type: Function, required: true },
+    nodePulsable: { type: Function, required: true },
+    nodeDeletable: { type: Function, required: true },
+    beforeDeleteNode: { type: Function, required: true },
+    beforeDeleteLink: { type: Function, required: true },
+    portDisabled: { type: Function, required: true },
+    portAvailable: { type: Function, required: true },
+    pan: { type: Boolean, required: true },
+    preventMouseEventsDefault: { type: Boolean, default: true },
+  },
+  data() {
+    return {
+      scaledGap: 10,
+      xOffSet: 10,
+      yOffSet: 10,
+      size: 0.5,
+      d: `M${5} 0 V${10} M0 ${5} H${10}`,
+    };
   },
   computed: {
     uniqId() {
       return ulid();
-    }
+    },
   },
   mounted() {
-    document.addEventListener('keydown', this.keyDownHandler);
+    document.addEventListener("keydown", this.keyDownHandler);
   },
   beforeDestroy() {
-    document.removeEventListener('keydown', this.keyDownHandler);
+    document.removeEventListener("keydown", this.keyDownHandler);
   },
-
   methods: {
     keyDownHandler(e) {
       // delete
       if (e.keyCode === 46) {
-        if (this.selectedNode && this.nodeDeletable(this.nodes[this.selectedNode])) {
+        if (
+          this.selectedNode &&
+          this.nodeDeletable(this.nodes[this.selectedNode])
+        ) {
           this.deleteNode(this.selectedNode);
         }
         if (this.selectedLink) {
@@ -148,34 +201,37 @@ export default {
       return point.matrixTransform(ctm);
     },
 
-    onNodeDragStart({node, eX, eY}) {
-      const {x, y} = this.convertXYtoViewPort(eX, eY);
+    onNodeDragStart({ node, eX, eY }) {
+      const { x, y } = this.convertXYtoViewPort(eX, eY);
       this.dragStart({
-        type: 'drag',
+        type: "drag",
         id: node.id,
         offset: {
           x: Math.round(x - node.x),
-          y: Math.round(y - node.y)
-        }
+          y: Math.round(y - node.y),
+        },
       });
     },
-    onNodeResizeStart({node, eX, eY}) {
-      const {x, y} = this.convertXYtoViewPort(eX, eY);
+
+    onNodeResizeStart({ node, eX, eY }) {
+      const { x, y } = this.convertXYtoViewPort(eX, eY);
       this.dragStart({
-        type: 'resize',
+        type: "resize",
         id: node.id,
         offset: {
-          x: -Math.round((node.x + node.width) - x),
-          y: -Math.round((node.y + node.height) - y)
-        }
+          x: -Math.round(node.x + node.width - x),
+          y: -Math.round(node.y + node.height - y),
+        },
       });
     },
+
     setActivePort(port) {
       this.activePort = port;
     },
+
     setHoveredPort(port) {
       this.hoveredPort = port;
     },
-  }
+  },
 };
 </script>

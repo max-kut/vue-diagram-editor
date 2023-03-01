@@ -65,7 +65,7 @@ export default class Node {
       case 'data':
         return value || {};
       case 'style':
-        return value || {backgroundColor: 'rgba(255,255,255,0.5)'};
+        return value || {backgroundColor: '#fafafa'};
       default:
         return value;
     }

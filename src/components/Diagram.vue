@@ -2,6 +2,7 @@
   <div class="diagram-editor__wrapper">
     <DiagramRoot
       ref="diagram"
+      :bg-pattern="bgPattern"
       :width="width"
       :height="height"
       :grid-snap="gridSnap"
@@ -43,6 +44,10 @@ export default {
   },
 
   props: {
+    bgPattern:{
+      type: Number,
+      default: 0
+    },
     height: {
       type: Number,
       default: 500,

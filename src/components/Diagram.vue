@@ -2,6 +2,7 @@
   <div class="diagram-editor__wrapper">
     <DiagramRoot
       ref="diagram"
+      :bg-pattern="bgPattern"
       :width="width"
       :height="height"
       :grid-snap="gridSnap"
@@ -18,20 +19,22 @@
       :prevent-mouse-events-default="preventMouseEventsDefault"
       @select-node="$emit('select-node', $event)"
       @deleted-node="$emit('deleted-node', $event)"
-      @deleted-link="$emit('deleted-link', $event)"
       @updated-node="$emit('updated-node', $event)"
-      @click-port="$emit('click-port', $event)"
       @created-link="$emit('created-link', $event)"
+      @deleted-link="$emit('deleted-link', $event)"
+      @select-link="$emit('select-link', $event)"
+      @click-port="$emit('click-port', $event)"
+      @clear-selection="$emit('clear-selection', $event)"
     >
       <template #default="scopedParams">
-        <slot name="node" v-bind="scopedParams"/>
+        <slot name="node" v-bind="scopedParams" />
       </template>
     </DiagramRoot>
   </div>
 </template>
 <script>
 import DiagramRoot from "./DiagramRoot";
-import throttle from 'lodash/throttle';
+import throttle from "lodash/throttle";
 
 export default {
   name: "Diagram",
@@ -41,57 +44,61 @@ export default {
   },
 
   props: {
+    bgPattern:{
+      type: Number,
+      default: 0
+    },
     height: {
       type: Number,
-      default: 500
+      default: 500,
     },
     gridSnap: {
       type: Number,
-      default: 1
+      default: 1,
     },
     zoomEnabled: {
       type: Boolean,
-      default: true
+      default: true,
     },
     nodeColor: {
       type: Function,
-      default: () => "#66cc00"
+      default: () => "#66cc00",
     },
     nodePulseColor: {
       type: Function,
-      default: () => '#f00'
+      default: () => "#f00",
     },
     nodePulsable: {
       type: Function,
-      default: () => false
+      default: () => false,
     },
     nodeDeletable: {
       type: Function,
-      default: () => true
+      default: () => true,
     },
     beforeDeleteNode: {
       type: Function,
-      default: () => true
+      default: () => true,
     },
     beforeDeleteLink: {
       type: Function,
-      default: () => true
+      default: () => true,
     },
     portDisabled: {
       type: Function,
-      default: () => false
+      default: () => false,
     },
     portAvailable: {
       type: Function,
-      default: () => true
+      default: () => true,
     },
     pan: {
       type: Boolean,
-      default: true
+      default: true,
     },
     preventMouseEventsDefault: {
       type: Boolean,
-      default: true
+      default: true,
     },
   },
 
@@ -102,17 +109,17 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('resize', this.updateWrapperWidth);
+    window.addEventListener("resize", this.updateWrapperWidth);
     this.updateWrapperWidth();
   },
 
   beforeDestroy() {
-    window.removeEventListener('resize', this.updateWrapperWidth);
+    window.removeEventListener("resize", this.updateWrapperWidth);
   },
 
   methods: {
     updateWrapperWidth: throttle(function () {
-      const {width} = this.$el.getBoundingClientRect();
+      const { width } = this.$el.getBoundingClientRect();
       this.width = width;
     }, 100),
 
@@ -132,8 +139,8 @@ export default {
       this.$refs.diagram.addLink(link);
     },
 
-    updateNode({id, name, value}) {
-      this.$refs.diagram.updateNode({id, name, value});
+    updateNode({ id, name, value }) {
+      this.$refs.diagram.updateNode({ id, name, value });
     },
 
     deleteNode(id) {
@@ -177,7 +184,12 @@ export default {
     center() {
       return this.$refs.diagram.center();
     },
+    zoomIn() {
+      return this.$refs.diagram.zoomIn();
+    },
+    zoomOut() {
+      return this.$refs.diagram.zoomOut();
+    },
   },
 };
 </script>
-

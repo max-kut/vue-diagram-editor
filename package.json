@@ -1,6 +1,6 @@
 {
   "name": "vue-diagram-editor",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Highly customizable diagram editor support for Vue.js",
   "author": "Maksim Kutishchev <max@amopro.ru>",
   "license": "Apache-2.0",
@@ -18,10 +18,10 @@
     "build-library": "node build/build-library.js",
     "build-docs": "rimraf gh-pages && mkdir gh-pages && node build/build-docs.js",
     "preview-docs": "http-server gh-pages",
-    "gh-pages": "npm run build-docs && gh-pages --dist gh-pages --branch gh-pages --dotfiles",
-    "lint:js": "eslint --ext .js --ext .vue --cache --cache-location node_modules/.cache/eslint --rule 'no-console: 2' .",
-    "lint:css": "stylelint '**/*.scss'",
-    "lint": "npm run lint:js && npm run lint:css"
+    "gh-pages": "yarn run build-docs && gh-pages --dist gh-pages --branch gh-pages --dotfiles",
+    "lint:js": "eslint --ext .js --ext .vue --cache --cache-location node_modules/.cache/eslint .",
+    "lint:css": "stylelint --fix \"**/*.scss\"",
+    "lint": "yarn run lint:js && yarn run lint:css"
   },
   "pre-commit": "lint",
   "dependencies": {

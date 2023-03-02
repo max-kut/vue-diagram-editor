@@ -83,11 +83,7 @@ export default () => ({
 
     beforePan() {
       return (
-        this.pan &&
-        !(
-          this.draggedNode ||
-          this.resizedNode ||
-          this.activePort         )
+        this.pan && !(this.draggedNode || this.resizedNode || this.activePort)
       );
     },
 
@@ -128,8 +124,19 @@ export default () => ({
     },
 
     clearSelection() {
-      this.selectedNode = null;
-      this.selectedLink = null;
+      let data = {};
+      if (this.selectedNode) {
+        data.id = this.selectedNode;
+        data.type = "node";
+        this.selectedNode = null;
+      }
+      if (this.selectedLink) {
+        data.id = this.selectedLink;
+        data.type = "link";
+        this.selectedLink = null;
+      }
+      this.$emit("clear-selection", data);
+
     },
 
     toggleMoveEventListener(enable) {

@@ -16,12 +16,12 @@
   margin: 1px;
 
   rect {
-    fill: rgba($color: #fff, $alpha: 0.3);
-    fill-opacity: 0.25;
+    fill: rgba($color: #be3232);
+    fill-opacity: 0.7;
   }
 
   line {
-    stroke: rgb(0, 0, 0);
+    stroke: #fff;
     stroke-width: 2;
   }
 }
@@ -47,14 +47,27 @@
   }
 }
 
-.diagram-editor__animated {
+.diagram-editor-lr__animated {
   stroke-dasharray: 10;
   stroke-dashoffset: 1000;
-  animation: diagram-editor--link-pulse 50s linear infinite;
+  animation: diagram-editor--link-pulse-LR 50s linear infinite;
 }
 
-@keyframes diagram-editor--link-pulse {
+.diagram-editor-rl__animated {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 1000;
+  animation: diagram-editor--link-pulse-RL 50s linear infinite;
+}
+
+
+@keyframes diagram-editor--link-pulse-LR {
   to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes diagram-editor--link-pulse-RL {
+  from {
     stroke-dashoffset: 0;
   }
 }

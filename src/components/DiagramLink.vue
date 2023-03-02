@@ -92,7 +92,10 @@ export default {
 
     linkClass() {
       if (this.link.animated) {
-        return "diagram-editor__animated";
+        if (this.link.inverted_flow){
+          return "diagram-editor-rl__animated";
+        }
+        return "diagram-editor-lr__animated";
       }
       return "";
     },

@@ -24,7 +24,7 @@
       @deleted-link="$emit('deleted-link', $event)"
       @select-link="$emit('select-link', $event)"
       @click-port="$emit('click-port', $event)"
-      @click-body="$emit('click-body', $event)"
+      @clear-selection="$emit('clear-selection', $event)"
     >
       <template #default="scopedParams">
         <slot name="node" v-bind="scopedParams" />

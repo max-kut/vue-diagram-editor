@@ -197,6 +197,7 @@ export default {
       return this.node.size.width - 4;
     },
     slotHeight() {
+      // отступ - заготовок - отступ
       return this.node.size.height - 22;
     },
     nodeDeletable() {
@@ -286,7 +287,7 @@ export default {
       if (hex.length !== 6) {
         throw new Error("Invalid HEX color.");
       }
-      var r = parseInt(hex.slice(0, 2), 16),
+      let r = parseInt(hex.slice(0, 2), 16),
         g = parseInt(hex.slice(2, 4), 16),
         b = parseInt(hex.slice(4, 6), 16);
       if (bw) {
@@ -295,7 +296,7 @@ export default {
       r = (255 - r).toString(16);
       g = (255 - g).toString(16);
       b = (255 - b).toString(16);
-      return "#" + padZero(r) + padZero(g) + padZero(b);
+      return "#" + r + g + b;
     },
   },
 };

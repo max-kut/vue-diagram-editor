@@ -93,9 +93,9 @@ export default {
     linkClass() {
       if (this.link.animated) {
         if (this.link.inverted_flow){
-          return "diagram-editor-rl__animated";
+          return "diagram-editor__animated1";
         }
-        return "diagram-editor-lr__animated";
+        return "diagram-editor__animated0";
       }
       return "";
     },

@@ -33,10 +33,9 @@
       class="diagram-editor__delete"
       @click="$emit('delete')"
     >
-      <rect x="0" y="0" width="12" height="12" rx="2" ry="2" />
-      <!-- <circle cx="2" cy="2" r="12" /> -->
-      <line :x1="2" :y1="2" :x2="10" :y2="10" />
-      <line :x1="10" :y1="2" :x2="2" :y2="10" />
+      <rect x="0" y="0" width="12" height="12" rx="2" ry="2"/>
+      <line :x1="2" :y1="2" :x2="10" :y2="10"/>
+      <line :x1="10" :y1="2" :x2="2" :y2="10"/>
     </svg>
   </svg>
 </template>

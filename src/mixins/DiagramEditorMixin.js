@@ -136,7 +136,6 @@ export default () => ({
         this.selectedLink = null;
       }
       this.$emit("clear-selection", data);
-
     },
 
     toggleMoveEventListener(enable) {
